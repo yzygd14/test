@@ -10,6 +10,8 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\EntryForm;
+use yii\base\ErrorException;
+
 
 class SiteController extends Controller
 {
@@ -125,9 +127,21 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionSay($message = 'Hello')
+    public function actionSay()
     {
-        return $this->render('say', ['message' => $message]);
+        //注释
+        function test($a,$b){
+            try {
+                return $a/$b;
+
+            } catch (ErrorException $e) {
+                echo "wrong";
+                Yii::warning("Division by zero.");
+            }
+            return 1;
+        }
+        echo test(10,0);
+        return $this->render('say', ['model' => 1]);
     }
 
     public function actionEntry()
